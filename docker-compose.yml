@@ -26,7 +26,7 @@ services:
     composer:
         image: "composer"
         volumes:
-            - "./web:/web"
+            - "./web:/app"
         command: composer create-project --prefer-dist laravel/laravel ${PROJECT_NAME} ${LARAVEL_VERSION}
     myadmin:
         image: phpmyadmin/phpmyadmin
