@@ -5,7 +5,7 @@ services:
         volumes:
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/ssl:/etc/ssl"
-            - "./web:/var/www/html"
+            - "./web/${PROJECT_NAME}:/var/www/html"
             - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
         ports:
             - "8000:80"
@@ -22,12 +22,12 @@ services:
         restart: always
         volumes:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
-            - "./web:/var/www/html"
+            - "./web/${PROJECT_NAME}:/var/www/html"
     composer:
         image: "composer"
         volumes:
-            - "./web/app:/app"
-        command: install
+            - "./web:/web"
+        command: composer create-project --prefer-dist laravel/laravel ${PROJECT_NAME} ${LARAVEL_VERSION}
     myadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin
